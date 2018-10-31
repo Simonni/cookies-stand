@@ -2,7 +2,7 @@
  // find element in HTML & match using an Id 
     let elBody = document.getElementById('myBody')
     let Table= document.getElementById('Cookies-Table')
-    let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am','1pm', '2pm','3pm','4pm','5pm','6pm','7pm']
+    let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am','1pm', '2pm','3pm','4pm','5pm','6pm','7pm',]
     let cookies = []
 
     // Declare a var & assign it the value of an array that will contain all our store hours 
@@ -42,31 +42,47 @@
     elTh.innerText = hours[i]
   }
 
-
-  let cookiesStore.prototype.result = function(){
     // create a new row and append it to our table 
-    for (let i =0; i <cookies.length; i++){
+    cookiesStore.prototype.newCookiesStore = function(){
       let row = document.createElement('tr')
       Table.appendChild(row)
       //let elTh = document.createElement('th')
       //elRow.appendChild(elTh)
-       row.innerText = cookies[i].location 
+       row.innerText = this.location 
+       let counter = 0 
       for (let j =0; j< hours.length; j++ ){
+      let resultPerDay = this.average()
         let elTd = document.createElement('td')
         row.appendChild(elTd)
-        let averagePrint=  elTd.innerText = cookies[i].average()
-        console.log(averagePrint) 
-      }
+        elTd.innerText = resultPerDay
+        counter+= resultPerDay
     }
-
+    let totalPerDay = document.createElement('td')
+    // appending with my row 
+    row.appendChild(totalPerDay)
+    totalPerDay.innerText= counter
   }
+    for (let i =0; i <cookies.length; i++){
+      cookies[i].newCookiesStore()
+      //console.log(this.newCookiesStore) 
+      }
+     
     
+    let tPday = document.createElement('th')
+    elHeader.appendChild(tPday)
+    tPday.innerText = 'Total per Day'
 
+    
   let total_header=document.createElement('tr')
   Table.appendChild(total_header)
   let total = document.createElement('th')
   total_header.appendChild(total)
   total.innerText = 'Total'
+  
+
+  // calculating total 
+
+
 
   // display Cookies Store in h2
 
