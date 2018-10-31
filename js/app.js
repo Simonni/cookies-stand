@@ -2,6 +2,8 @@
  // find element in HTML & match using an Id 
     let elBody = document.getElementById('myBody')
     let Table= document.getElementById('Cookies-Table')
+    let elform = document.getElementById('cookiesForm')
+
     let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am','1pm', '2pm','3pm','4pm','5pm','6pm','7pm',]
     let cookies = []
 
@@ -77,23 +79,30 @@
   Table.appendChild(total_header)
   let total = document.createElement('th')
   total_header.appendChild(total)
-  total.innerText = 'Total'
+  //total.innerText = 'Total'
   
 
-  // calculating total 
+//access our inputs on our form in HTML through dot notation with JS
+let elNameOfStore = elform.nameOfStore
+let elMinCustomers = elform.minNum
+let elMaxCustomers = elform.maxNum
+let elCusNum = elform.cusNum
+
+// Creating an Event Listner for submit event & create a new instance to our constructor function
+
+elform.addEventListener('submit', function(event){
+  event.preventDefault()
+  let newStore = new cookiesStore(elNameOfStore.value, parseInt(elMinCustomers.value), parseInt(elMaxCustomers.value), parseInt(elCusNum.value) )
+  cookies.push(newStore)
+// invoke our new Store
+newStore.newCookiesStore()
+})
+
+ 
 
 
 
-  // display Cookies Store in h2
-
-  let elCookiesTitle = document.createElement('h2')
-  elBody.appendChild(elCookiesTitle)
-  elCookiesTitle.innerText = Silverspring.location
-
-  // store information into HTML
-  let elList = document.createElement('ul')
-  elBody.appendChild(elList)
-
+ 
 
 
 
