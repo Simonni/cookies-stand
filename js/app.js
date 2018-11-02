@@ -1,87 +1,85 @@
 'use strict'
- // find element in HTML & match using an Id 
-    let elBody = document.getElementById('myBody')
-    let Table= document.getElementById('Cookies-Table')
-    let elform = document.getElementById('cookiesForm')
+// find element in HTML & match using an Id 
+let elBody = document.getElementById('myBody')
+let Table= document.getElementById('Cookies-Table')
+let elform = document.getElementById('cookiesForm')
 
-    let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am','1pm', '2pm','3pm','4pm','5pm','6pm','7pm',]
-    let cookies = []
+let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12am','1pm', '2pm','3pm','4pm','5pm','6pm','7pm',]
+let cookies = []
 
-    // Declare a var & assign it the value of an array that will contain all our store hours 
+// Declare a var & assign it the value of an array that will contain all our store hours 
 
-    let cookiesStore = function (location, min, max, cusNum){
-    this.location = location
-    this.max = max
-    this.min = min
-    this.cusNum = cusNum
-    }
+let cookiesStore = function (location, min, max, cusNum){
+  this.location = location
+  this.max = max
+  this.min = min
+  this.cusNum = cusNum
+}
 
-  cookiesStore.prototype.average = function(){
-      let randomNumCookies = Math.ceil(Math.random() * (this.max - this.min) + this.min)
-      //console.log(randomNumCookies)
-      return (randomNumCookies*this.cusNum)
-  }
+cookiesStore.prototype.average = function(){
+  let randomNumCookies = Math.ceil(Math.random() * (this.max - this.min) + this.min)
+  //console.log(randomNumCookies)
+  return (randomNumCookies*this.cusNum)
+}
 
-  // instantiating a new instance 
-  let Silverspring = new cookiesStore('Silverspring',5, 20, 3)
-  let Hyattsville = new cookiesStore ('Hyattsville', 35, 150, 15)
-  let Greenbelt = new cookiesStore ('Greenbelt', 22, 120, 12)
+// instantiating a new instance 
+let Silverspring = new cookiesStore('Silverspring',5, 20, 3)
+let Hyattsville = new cookiesStore ('Hyattsville', 35, 150, 15)
+let Greenbelt = new cookiesStore ('Greenbelt', 22, 120, 12)
 
-  // Push new instance to Cookies array
-  cookies.push(Silverspring, Hyattsville, Greenbelt)
+// Push new instance to Cookies array
+cookies.push(Silverspring, Hyattsville, Greenbelt)
 
-  // Creating a Table in our HTML
-  let elHeader = document.createElement('tr')
-  Table.appendChild(elHeader)
+// Creating a Table in our HTML
+let elHeader = document.createElement('tr')
+Table.appendChild(elHeader)
+let elTh = document.createElement('th')
+elHeader.appendChild(elTh)
+elTh.innerText = 'Stores'
+
+
+for (let i =0; i <hours.length; i++){
   let elTh = document.createElement('th')
   elHeader.appendChild(elTh)
-  elTh.innerText = 'Stores'
+  elTh.innerText = hours[i]
+}
 
-
-  for (let i =0; i <hours.length; i++){
-    let elTh = document.createElement('th')
-    elHeader.appendChild(elTh)
-    elTh.innerText = hours[i]
+// create a new row and append it to our table 
+cookiesStore.prototype.newCookiesStore = function(){
+  let row = document.createElement('tr')
+  Table.appendChild(row)
+  //let elTh = document.createElement('th')
+  //elRow.appendChild(elTh)
+  row.innerText = this.location 
+  let counter = 0 
+  for (let j =0; j< hours.length; j++ ){
+    let resultPerDay = this.average()
+    let elTd = document.createElement('td')
+    row.appendChild(elTd)
+    elTd.innerText = resultPerDay
+    counter+= resultPerDay
   }
+  let totalPerDay = document.createElement('td')
+  // appending with my row 
+  row.appendChild(totalPerDay)
+  totalPerDay.innerText= counter
+}
+for (let i =0; i <cookies.length; i++){
+  cookies[i].newCookiesStore()
+//console.log(this.newCookiesStore) 
+}
 
-    // create a new row and append it to our table 
-    cookiesStore.prototype.newCookiesStore = function(){
-      let row = document.createElement('tr')
-      Table.appendChild(row)
-      //let elTh = document.createElement('th')
-      //elRow.appendChild(elTh)
-       row.innerText = this.location 
-       let counter = 0 
-      for (let j =0; j< hours.length; j++ ){
-      let resultPerDay = this.average()
-        let elTd = document.createElement('td')
-        row.appendChild(elTd)
-        elTd.innerText = resultPerDay
-        counter+= resultPerDay
-    }
-    let totalPerDay = document.createElement('td')
-    // appending with my row 
-    row.appendChild(totalPerDay)
-    totalPerDay.innerText= counter
-  }
-    for (let i =0; i <cookies.length; i++){
-      cookies[i].newCookiesStore()
-      //console.log(this.newCookiesStore) 
-      }
-     
-    
-    let tPday = document.createElement('th')
-    elHeader.appendChild(tPday)
-    tPday.innerText = 'Total per Day'
 
-    
-  let total_header=document.createElement('tr')
-  Table.appendChild(total_header)
-  let total = document.createElement('th')
-  total_header.appendChild(total)
-  //total.innerText = 'Total'
-  
 
+let tPday = document.createElement('th')
+elHeader.appendChild(tPday)
+tPday.innerText = 'Total per Day'
+
+let total_header=document.createElement('tr')
+Table.appendChild(total_header)
+let total = document.createElement('th')
+total_header.appendChild(total)
+//total.innerText = 'Total'
 //access our inputs on our form in HTML through dot notation with JS
 let elNameOfStore = elform.nameOfStore
 let elMinCustomers = elform.minNum
@@ -94,17 +92,18 @@ elform.addEventListener('submit', function(event){
   event.preventDefault()
   let newStore = new cookiesStore(elNameOfStore.value, parseInt(elMinCustomers.value), parseInt(elMaxCustomers.value), parseInt(elCusNum.value) )
   cookies.push(newStore)
-// invoke our new Store
-newStore.newCookiesStore()
+  // invoke our new Store
+  newStore.newCookiesStore()
 })
 
- 
-
-
-
- 
-
-
-
-
-  
+// Adding totals of each store per hr
+cookiesStore.prototype.testResult=function(){
+  let i = 0
+  while(i<cookies.length){
+    let sum = cookies[i].newCookiesStore()
+    for(let j=0; j <1; j++){
+      sum +=hours[j]
+    }
+    console.log(sum)
+  }
+}

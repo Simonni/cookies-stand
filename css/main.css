@@ -1,0 +1,47 @@
+body {
+  width: 100%;
+  margin: 0px;
+  color:black;
+}
+
+nav{
+  width:100%;
+  background-color: aquamarine;
+}
+
+.nav-link{
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  width: 100%
+}
+
+aside{
+  width:20%;
+  height: 500px;
+  background-color: brown;
+  float: left;
+   
+}
+
+main {
+  width: 80%;
+  height:500px;
+  background-color: lawngreen;
+  float: left;
+
+}
+
+article{
+  width: 40%;
+  background-color: aquamarine;
+  height: 250px;
+  float: left;
+}
+
+footer{
+  width: 100%;
+  background-color: aquamarine;
+  float: left;
+  height: 100px;
+}
