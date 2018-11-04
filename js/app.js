@@ -1,3 +1,4 @@
+
 'use strict'
 // find element in HTML & match using an Id 
 let elBody = document.getElementById('myBody')
@@ -14,6 +15,7 @@ let cookiesStore = function (location, min, max, cusNum){
   this.max = max
   this.min = min
   this.cusNum = cusNum
+  this.newStoreArray = []
 }
 
 cookiesStore.prototype.average = function(){
@@ -37,7 +39,7 @@ let elTh = document.createElement('th')
 elHeader.appendChild(elTh)
 elTh.innerText = 'Stores'
 
-
+// loop through our hr array & display each hr as table header
 for (let i =0; i <hours.length; i++){
   let elTh = document.createElement('th')
   elHeader.appendChild(elTh)
@@ -48,37 +50,53 @@ for (let i =0; i <hours.length; i++){
 cookiesStore.prototype.newCookiesStore = function(){
   let row = document.createElement('tr')
   Table.appendChild(row)
-  //let elTh = document.createElement('th')
-  //elRow.appendChild(elTh)
-  row.innerText = this.location 
-  let counter = 0 
+  let newTh = document.createElement('th')
+  row.appendChild(newTh)
+  newTh.innerText = this.location 
+  let counter=0
   for (let j =0; j< hours.length; j++ ){
     let resultPerDay = this.average()
+    counter +=resultPerDay
     let elTd = document.createElement('td')
     row.appendChild(elTd)
     elTd.innerText = resultPerDay
-    counter+= resultPerDay
+    this.newStoreArray.push(resultPerDay) 
   }
+
   let totalPerDay = document.createElement('td')
-  // appending with my row 
   row.appendChild(totalPerDay)
   totalPerDay.innerText= counter
 }
+
+let total = document.createElement('th')
+elHeader.appendChild(total)
+total.innerText = 'Total/Day'
+
+
 for (let i =0; i <cookies.length; i++){
   cookies[i].newCookiesStore()
 //console.log(this.newCookiesStore) 
 }
 
+let totalFooter = function(){
+  let newRow = document.createElement('tr')
+  Table.appendChild(newRow)
+  let tPday = document.createElement('th')
+  newRow.appendChild(tPday)
+  tPday.innerText = 'Total/Hr'
 
+  for (let i=0; i<hours.length; i++){
+    let counter = 0
+    for(let j = 0; j<cookies.length; j++){
+      counter+= cookies[j].newStoreArray[i]
+    }
+    let newTd=document.createElement('td')
+    newRow.appendChild(newTd)
+    newTd.innerText=counter
+  }
+}
+totalFooter()
 
-let tPday = document.createElement('th')
-elHeader.appendChild(tPday)
-tPday.innerText = 'Total per Day'
-
-let total_header=document.createElement('tr')
-Table.appendChild(total_header)
-let total = document.createElement('th')
-total_header.appendChild(total)
 //total.innerText = 'Total'
 //access our inputs on our form in HTML through dot notation with JS
 let elNameOfStore = elform.nameOfStore
@@ -90,20 +108,12 @@ let elCusNum = elform.cusNum
 
 elform.addEventListener('submit', function(event){
   event.preventDefault()
-  let newStore = new cookiesStore(elNameOfStore.value, parseInt(elMinCustomers.value), parseInt(elMaxCustomers.value), parseInt(elCusNum.value) )
+  Table.removeChild(Table.lastChild)
+  let newStore = new cookiesStore(elNameOfStore.value, parseInt(elMinCustomers.value), parseInt (elMaxCustomers.value), parseInt(elCusNum.value) )
   cookies.push(newStore)
+  
   // invoke our new Store
   newStore.newCookiesStore()
+  totalFooter()
 })
 
-// Adding totals of each store per hr
-cookiesStore.prototype.testResult=function(){
-  let i = 0
-  while(i<cookies.length){
-    let sum = cookies[i].newCookiesStore()
-    for(let j=0; j <1; j++){
-      sum +=hours[j]
-    }
-    console.log(sum)
-  }
-}
