@@ -1,46 +1,75 @@
-body {
-  width: 100%;
-  margin: 0px;
-  color:black;
-}
 
 nav{
-  width:100%;
-  background-color: aquamarine;
-}
-
-.nav-link{
-  display: inline-block;
-  text-decoration: none;
-  color: black;
-}
-
-aside{
-  width:20%;
-  height: 500px;
-  background-color: brown;
-  float: left;
-   
-}
-
-main {
-  width: 80%;
-  height:500px;
-  background-color: lawngreen;
-  float: left;
-
-}
-
-article{
-  width: 40%;
-  background-color: aquamarine;
-  height: 250px;
-  float: left;
-}
-
-footer{
   width: 100%;
-  background-color: aquamarine;
-  float: left;
-  height: 100px;
+  display: inline-block;
+  background-color: antiquewhite;
+  margin:0;
+  height:6em;
 }
+  
+  h1{ display: inline-block; 
+    float:left; 
+    margin-top: 3em;
+    
+  }
+  
+  
+  h3{display: inline-block;
+    float: left;
+    margin-top: 4em;
+    margin-left: 12em;
+  }
+  
+  h4{ 
+    display: inline-block;  
+    margin-left: 30em;
+    margin-top:4.5em;
+  }
+  
+  /*..............................................*/
+   
+  p{font-size: 1.5em;
+    color:rgb(248, 144, 7);
+   
+  }
+  
+  label{font-size: 1em;
+  color:rgb(105, 5, 5);
+  }
+  
+  .main{
+    margin-top: 0em;
+  width:80%;
+  height: 50%; 
+  }
+  
+  h5 {
+    display: inline-block;
+      float: left;
+  }
+  #capture2{
+    display:inline;
+    
+  }
+  #line2{
+    border: 0;
+    height: 0;
+    box-shadow: 0 0 10px 1px black;
+  }
+  /*..............................................*/
+  footer{
+    width:100%;
+    height:10%;
+    
+  }
+   h6{
+     color: brown;
+     display: inline-block;  
+    margin-top: 5em;
+   }
+  
+   #phone{
+    margin-left: 10em;
+  
+  
+   
